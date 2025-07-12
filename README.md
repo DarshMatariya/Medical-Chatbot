@@ -39,9 +39,9 @@ Medical-Chatbot/
 
 - `UI` : Streamlit
 - `Embeddings` : sentence-transformers/all-MiniLM-L6-v2
-`- Vector DB : FAISS (saved locally)`
-`- LLM : Groq (meta-llama/llama-4-scout-17b)`
-`- Orchestration : LangChain`
+- `Vector DB` : FAISS (saved locally)
+- `LLM` : Groq (meta-llama/llama-4-scout-17b)
+- `Orchestration` : LangChain
 
 
 ## Environment Variables
