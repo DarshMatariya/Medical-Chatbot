@@ -58,65 +58,74 @@ def set_medibot():
 
     # Step - 2 : RETRIEVAL
     retriever = vector_store.as_retriever(search_type="mmr", search_kwargs={"k": 7})
-    os.environ["GROQ_API_KEY"] = st.secrets["GROQ_API_KEY"]
-    llm = ChatGroq(model_name="meta-llama/llama-4-scout-17b-16e-instruct", temperature=0.5)
+
+    llm = ChatGroq(
+        model_name="meta-llama/llama-4-scout-17b-16e-instruct",
+        temperature=0.5,
+        groq_api_key=st.secrets["GROQ_API_KEY"]
+    )
 
     return retriever, llm
 
-retriever, llm = set_medibot()
+def main():
+    retriever, llm = set_medibot()
 
-# Chat history
-if "chat_history" not in st.session_state:
-    st.session_state.chat_history = []
+    # Chat history
+    if "chat_history" not in st.session_state:
+        st.session_state.chat_history = []
 
-st.set_page_config(page_title="Medibot", page_icon="🧠")
-st.title("🧠 Medibot - Your AI Medical Assistant")
+    st.set_page_config(page_title="Medibot", page_icon="🧠")
+    st.title("🧠 Medibot - Your AI Medical Assistant")
 
-# Display previous Chat Messages 
-for entry in st.session_state.chat_history:
-    with st.chat_message("user"):
-        st.markdown(entry["question"])
-    with st.chat_message("assistant"):
-        st.markdown(entry["answer"])
+    # Display previous Chat Messages 
+    for entry in st.session_state.chat_history:
+        with st.chat_message("user"):
+            st.markdown(entry["question"])
+        with st.chat_message("assistant"):
+            st.markdown(entry["answer"])
 
-user_input = st.chat_input("Ask Medibot any medical question...")
+    user_input = st.chat_input("Ask Medibot any medical question...")
 
-if user_input:
-    with st.chat_message("user"):
-        st.markdown(user_input)
+    if user_input:
+        with st.chat_message("user"):
+            st.markdown(user_input)
 
-    # Stream real-time answer
-    with st.chat_message("assistant"):
+        # Stream real-time answer
+        with st.chat_message("assistant"):
 
-        # Step - 3 : Augmentation
-        context_docs = retriever.invoke(user_input)
-        context = "\n\n".join(doc.page_content for doc in context_docs)
+            # Step - 3 : Augmentation
+            context_docs = retriever.invoke(user_input)
+            context = "\n\n".join(doc.page_content for doc in context_docs)
 
-        prompt = f"""
-            You are Medibot, a trustworthy AI **medical** assistant.
+            prompt = f"""
+                You are Medibot, a trustworthy AI **medical** assistant.
 
-            Only answer questions related to medicine, health, diseases, symptoms, treatment, anatomy, or healthcare. 
+                Only answer questions related to medicine, health, diseases, symptoms, treatment, anatomy, or healthcare. 
 
-            Do NOT answer questions outside the medical domain. If the question is unrelated, respond:
-            "I'm trained only to answer medical and health-related questions. Please ask something in that domain."
+                Do NOT answer questions outside the medical domain. If the question is unrelated, respond:
+                "I'm trained only to answer medical and health-related questions. Please ask something in that domain."
 
-            Here is the relevant medical context from trusted sources:
-            {context}
+                Here is the relevant medical context from trusted sources:
+                {context}
 
-            Below is the user question:
+                Below is the user question:
 
-            Question: {user_input}
-            Answer:
-        """
+                Question: {user_input}
+                Answer:
+            """
 
-        # Step - 4 : GENERATION (Streaming Geneation)
-        full_response = ""
-        response_container = st.empty()
-        for chunk in llm.stream(prompt):
-            full_response += chunk.content
-            response_container.markdown(full_response)
+            # Step - 4 : GENERATION (Streaming Geneation)
+            full_response = ""
+            response_container = st.empty()
+            for chunk in llm.stream(prompt):
+                full_response += chunk.content
+                response_container.markdown(full_response)
 
-    st.session_state.chat_history.append({
-        "question": user_input,
-        "answer": full_response
-    })
+        st.session_state.chat_history.append({
+            "question": user_input,
+            "answer": full_response
+        })
+
+
+if __name__ == "__main__":
+    main()
