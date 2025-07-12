@@ -24,24 +24,24 @@ No signup needed; ask away about symptoms, treatments, or anatomy.
 ## Project Structure
 
 Medical-Chatbot/
-├─ `app.py`             # Streamlit entrypoint
-├─ `requirements.txt`
-├─ `.streamlit/`
-│ └─ `config.toml`
-├─ `data/`             # Source PDFs
-├─ `vectorstore/`
-│ └─ `db_faiss/`       # Pre‑built FAISS index (.faiss + .pkl)
-└─ `README.md`
+- `app.py`             # Streamlit entrypoint
+- `requirements.txt`
+- `.streamlit/`
+  - `config.toml`
+- `data/`             # Source PDFs
+- `vectorstore/`
+  - `db_faiss/`       # Pre‑built FAISS index (.faiss + .pkl)
+- `README.md`
 
 
 
 ## Tech Stack
 
-`UI : Streamlit`
-`Embeddings : sentence-transformers/all-MiniLM-L6-v2`
-`Vector DB : FAISS (saved locally)`
-`LLM : Groq (meta-llama/llama-4-scout-17b)`
-`Orchestration : LangChain`
+`- UI : Streamlit`
+`- Embeddings : sentence-transformers/all-MiniLM-L6-v2`
+`- Vector DB : FAISS (saved locally)`
+`- LLM : Groq (meta-llama/llama-4-scout-17b)`
+`- Orchestration : LangChain`
 
 
 ## Environment Variables
