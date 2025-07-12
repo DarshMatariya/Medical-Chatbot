@@ -3,7 +3,7 @@ langchain==0.2.3
 langchain-community==0.2.3
 langchain-core==0.2.3
 langchain-groq==0.1.4
-langchain-huggingface==0.1.4
+langchain-huggingface==0.1.2
 sentence-transformers==2.6.1
 faiss-cpu==1.7.4
 pypdf==4.2.0 
