@@ -37,7 +37,7 @@ Medical-Chatbot/
 
 ## Tech Stack
 
-`- UI : Streamlit`
+`- UI` : Streamlit
 `- Embeddings : sentence-transformers/all-MiniLM-L6-v2`
 `- Vector DB : FAISS (saved locally)`
 `- LLM : Groq (meta-llama/llama-4-scout-17b)`
