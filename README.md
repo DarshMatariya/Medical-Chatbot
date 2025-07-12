@@ -5,19 +5,19 @@
 
 ---
 
+## Live Demo
+Hit the button –> **https://medical-assistance.streamlit.app/**  
+No signup needed; ask away about symptoms, treatments, or anatomy.  
+(Out‑of‑scope questions politely bounce.)
+
+---
+
 ## Features
 - **Hybrid RAG pipeline** – FAISS + LangChain for context‑aware answers  
 - **Groq Llama‑4 Scout 17B** – low‑latency, high‑quality generation  
 - **MMR retrieval** – diverse, relevant passages (`k=7`)  
 - **PDF loader** – just drop new guidelines in `/data`, re‑index, and go  
 - **Chat history** – persists per session for smoother follow‑ups  
-
----
-
-## Live Demo
-Hit the button –> **https://medical-assistance.streamlit.app/**  
-No signup needed; ask away about symptoms, treatments, or anatomy.  
-(Out‑of‑scope questions politely bounce.)
 
 ---
 
